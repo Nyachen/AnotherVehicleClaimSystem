@@ -1,4 +1,4 @@
-module AVCS
+module Base
 {
     model ClaimOrb
 	{

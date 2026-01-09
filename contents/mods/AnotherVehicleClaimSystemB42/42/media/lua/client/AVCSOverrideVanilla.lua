@@ -302,7 +302,7 @@ if not AVCS.oISTakeEngineParts then
     AVCS.oISTakeEngineParts = ISTakeEngineParts.new
 end
 
-function ISTakeEngineParts:new(character, part, item, time)
+function ISTakeEngineParts:new(character, part, item, time)	
 	local checkResult = AVCS.getPublicPermission(part:getVehicle(), "AllowTakeEngineParts")
 
 	if checkResult then
@@ -328,18 +328,19 @@ if not AVCS.oISInflateTire then
     AVCS.oISInflateTire = ISInflateTire.new
 end
 
-function ISInflateTire:new(character, part, item, psi, time)
+function ISInflateTire:new(character, part, item, psiTarget)	
 	local checkResult = AVCS.getPublicPermission(part:getVehicle(), "AllowInflatTires")
 
 	if checkResult then
-		return AVCS.oISInflateTire(self, character, part, item, psi, time)
+		return AVCS.oISInflateTire(self, character, part, item, psiTarget)
 	end
 
 	checkResult = AVCS.checkPermission(character, part:getVehicle())
+
 	checkResult = AVCS.getSimpleBooleanPermission(checkResult)
 
 	if checkResult then
-		return AVCS.oISInflateTire(self, character, part, item, psi, time)
+		return AVCS.oISInflateTire(self, character, part, item, psiTarget)
 	end
 
 	character:setHaloNote(getText("IGUI_AVCS_Vehicle_No_Permission"), 250, 250, 250, 300)
@@ -354,18 +355,19 @@ if not AVCS.oISDeflateTire then
     AVCS.oISDeflateTire = ISDeflateTire.new
 end
 
-function ISDeflateTire:new(character, part, psi, time)
+function ISDeflateTire:new(character, part, psiTarget)	
 	local checkResult = AVCS.getPublicPermission(part:getVehicle(), "AllowDeflatTires")
 
 	if checkResult then
-		return AVCS.oISDeflateTire(self, character, part, psi, time)
+		return AVCS.oISDeflateTire(self, character, part, psiTarget)
 	end
 
 	checkResult = AVCS.checkPermission(character, part:getVehicle())
+
 	checkResult = AVCS.getSimpleBooleanPermission(checkResult)
 
 	if checkResult then
-		return AVCS.oISDeflateTire(self, character, part, psi, time)
+		return AVCS.oISDeflateTire(self, character, part, psiTarget)
 	end
 
 	character:setHaloNote(getText("IGUI_AVCS_Vehicle_No_Permission"), 250, 250, 250, 300)
@@ -397,32 +399,33 @@ end
 
 -- Copy and override the vanilla ISOpenVehicleDoor to block unauthorized users
 if not AVCS.oISOpenVehicleDoor then
-    AVCS.oISOpenVehicleDoor = ISOpenVehicleDoor.new
+	AVCS.oISOpenVehicleDoor = ISOpenVehicleDoor.new
 end
 
-function ISOpenVehicleDoor:new(character, vehicle, partOrSeat)
+function ISOpenVehicleDoor:new(character, vehicle, part)
+	
 	-- Exiting from seat
-	if type(partOrSeat) == "number" then
-		return AVCS.oISOpenVehicleDoor(self, character, vehicle, partOrSeat)
+	if part:getId() == "number" then
+		return AVCS.oISOpenVehicleDoor(self, character, vehicle, part)
 	end
 
 	-- Opening from outside
-	local tempID = string.lower(partOrSeat:getId())
+	local tempID = string.lower(part:getId())
 	if not AVCS.matchTrunkPart(tempID) then
-		return AVCS.oISOpenVehicleDoor(self, character, vehicle, partOrSeat)
+		return AVCS.oISOpenVehicleDoor(self, character, vehicle, part)
 	end
 
 	local checkResult = AVCS.getPublicPermission(vehicle, "AllowOpeningTrunk")
 
 	if checkResult then
-		return AVCS.oISOpenVehicleDoor(self, character, vehicle, partOrSeat)
+		return AVCS.oISOpenVehicleDoor(self, character, vehicle, part)
 	end
 
 	checkResult = AVCS.checkPermission(character, vehicle)
 	checkResult = AVCS.getSimpleBooleanPermission(checkResult)
 
 	if checkResult then
-		return AVCS.oISOpenVehicleDoor(self, character, vehicle, partOrSeat)
+		return AVCS.oISOpenVehicleDoor(self, character, vehicle, part)
 	end
 
 	character:setHaloNote(getText("IGUI_AVCS_Vehicle_No_Permission"), 250, 250, 250, 300)

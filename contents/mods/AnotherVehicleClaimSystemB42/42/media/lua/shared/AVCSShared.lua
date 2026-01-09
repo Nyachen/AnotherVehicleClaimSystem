@@ -107,14 +107,21 @@ function AVCS.checkMaxClaim(playerObj)
 	end
 end
 
-function AVCS.getPublicPermission(vehicleObj, type)
-	local vehicleSQL = AVCS.getVehicleID(vehicleObj)
+function AVCS.getPublicPermission(vehicleObj, permissionType)
+	
+	-- Get early the vehicle ID
+	local vehicleSQL = vehicleObj:getModData().SQLID
+
 	if vehicleSQL then
+		local data = AVCS.dbByVehicleSQLID[vehicleSQL]
+
 		if AVCS.dbByVehicleSQLID[vehicleSQL] then
-			if AVCS.dbByVehicleSQLID[vehicleSQL][type] then
-				return AVCS.dbByVehicleSQLID[vehicleSQL][type]
-			else
+			local data = AVCS.dbByVehicleSQLID[vehicleSQL][permissionType]
+
+			if not data then
 				return false
+			else
+				return data
 			end
 		else
 			return true
@@ -124,20 +131,10 @@ function AVCS.getPublicPermission(vehicleObj, type)
 	end
 end
 
---[[
-Was thinking if this should be a simple boolean function or more
-Then, I wanted to show the owner name as tooltip in the context menu
-So I decided to make it more...
-
-false = unsupported vehicle
-true = unowned
-table / array = owned and permission
---]]
-
 function AVCS.checkPermission(playerObj, vehicleObj)
 	local vehicleSQL = nil
 	if type(vehicleObj) ~= "number" then
-		vehicleSQL = AVCS.getVehicleID(vehicleObj)
+		vehicleSQL = vehicleObj:getModData().SQLID
 	else
 		vehicleSQL = vehicleObj
 	end
@@ -148,12 +145,16 @@ function AVCS.checkPermission(playerObj, vehicleObj)
 	end
 
 	-- Ownerless
-	if AVCS.dbByVehicleSQLID[vehicleSQL] == nil then
+	local ownerData = AVCS.dbByVehicleSQLID[vehicleSQL]
+
+	if not ownerData then
 		return true
 	end
 	
 	-- Privileged users
-	if string.lower(playerObj:getAccessLevel()) ~= "none" then
+	local playerAccessLevel = string.lower(playerObj:getAccessLevel())
+
+	if playerAccessLevel == "admin" or playerAccessLevel == "moderator" or playerAccessLevel == "gm" then
 		local details = {
 			permissions = true,
 			ownerid = AVCS.dbByVehicleSQLID[vehicleSQL].OwnerPlayerID,
