@@ -4,6 +4,6 @@ module Base
 	{
 		mesh = WorldItems/BaseBall,
 		texture = WorldItems/MysteriousVehicleClaimKey,
-		scale = 0.05,
+		scale = 0.5,
 	}
 }

@@ -250,18 +250,18 @@ if not MVCK.oISUninstallVehiclePart then
     MVCK.oISUninstallVehiclePart = ISUninstallVehiclePart.new
 end
 
-function ISUninstallVehiclePart:new(character, part, time)
+function ISUninstallVehiclePart:new(character, part, workTime)
 	local checkResult = MVCK.getPublicPermission(part:getVehicle(), "AllowUninstallParts")
 
 	if checkResult then
-		return MVCK.oISUninstallVehiclePart(self, character, part, time)
+		return MVCK.oISUninstallVehiclePart(self, character, part, workTime)
 	end
 
 	checkResult = MVCK.checkPermission(character, part:getVehicle())
 	checkResult = MVCK.getSimpleBooleanPermission(checkResult)
 
 	if checkResult then
-		return MVCK.oISUninstallVehiclePart(self, character, part, time)
+		return MVCK.oISUninstallVehiclePart(self, character, part, workTime)
 	end
 
 	character:setHaloNote(getText("IGUI_MVCK_Vehicle_No_Permission"), 250, 250, 250, 300)

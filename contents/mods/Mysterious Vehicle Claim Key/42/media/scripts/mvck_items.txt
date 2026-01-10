@@ -6,6 +6,6 @@ module Base
         Weight = 0.1,
         DisplayCategory = VehicleMaintenance,
         Icon = MysteriousVehicleClaimKey,
-        WorldStaticModel = MVCK.MysteriousVehicleClaimKey,
+        WorldStaticModel = MVCK.MVCKModel,
     }
 }
