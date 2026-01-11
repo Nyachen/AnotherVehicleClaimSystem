@@ -31,6 +31,7 @@ Mysterious Vehicle Claim Key is an updated mod for works only in build 42, with 
 - Spain by Nyachen.
 - Spain (AR) by Nyachen.
 - Italian by falbor.
+- Simplified Chinese by 树皮.
 
 Original Source Code - https://github.com/Lu5ck/AnotherVehicleClaimSystem
 Build 42 Source Code - https://github.com/Nyachen/MysteriousVehicleClaimKey
