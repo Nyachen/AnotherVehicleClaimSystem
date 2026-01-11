@@ -48,21 +48,53 @@ function MVCK.UI.UserPermissionPanel:btnConfirm_onClick(btn)
 end
 
 function MVCK.UI.UserPermissionPanel:addSets(text, name)
-    local lblpadleft = pad + 10
+    local font = UIFont.NewSmall
     local i = #self.lblSet + 1
 
-    self.lblSet[i] = ISLabel:new(lblpadleft, 12 + ((getTextManager():getFontHeight(UIFont.NewSmall) + 5) * i), getTextManager():getFontHeight(UIFont.NewSmall), text, 1, 1, 1, 1, UIFont.NewSmall, true)
+    local lineHeight = getTextManager():getFontHeight(font)
+    local y = 12 + ((lineHeight + 5) * i)
+    local lblpadleft = pad + 10
+
+    local textWidth = getTextManager():MeasureStringX(font, text)
+
+    self.requiredWidth = math.max(
+        self.requiredWidth or self.width,
+        lblpadleft + textWidth + 50
+    )
+
+    self.requiredHeight = math.max(
+        self.requiredHeight or self.height,
+        y + lineHeight + 90
+    )
+
+    self.lblSet[i] = ISLabel:new(
+        lblpadleft,
+        y,
+        lineHeight,
+        text,
+        1, 1, 1, 1,
+        font,
+        true
+    )
     self.lblSet[i]:initialise()
     self.lblSet[i]:instantiate()
     self:addChild(self.lblSet[i])
 
-    self.chkBox[i] = ISTickBox:new(self.width - getTextManager():getFontHeight(UIFont.NewSmall) - 20, 12 + ((getTextManager():getFontHeight(UIFont.NewSmall) + 5) * i), getTextManager():getFontHeight(UIFont.NewSmall), getTextManager():getFontHeight(UIFont.NewSmall), "", nil, nil)
+    self.chkBox[i] = ISTickBox:new(
+        0,
+        y,
+        lineHeight,
+        lineHeight,
+        "",
+        nil,
+        nil
+    )
     self.chkBox[i].internal = name
-    self.chkBox[i]:initialise();
-    self.chkBox[i]:instantiate();
-    self.chkBox[i]:addOption("");
-    self:addChild(self.chkBox[i]);
-    
+    self.chkBox[i]:initialise()
+    self.chkBox[i]:instantiate()
+    self.chkBox[i]:addOption("")
+    self:addChild(self.chkBox[i])
+
     if MVCK.dbByVehicleSQLID[self.vehicleID][name] then
         self.chkBox[i]:setSelected(1, true)
     end
@@ -108,6 +140,22 @@ function MVCK.UI.UserPermissionPanel:createChildren()
     self:addSets(getText("IGUI_MVCK_User_Permissions_lblAllowDeflatTires"), "AllowDeflatTires")
     self:addSets(getText("IGUI_MVCK_User_Permissions_lblAllowSmashVehicleWindow"), "AllowSmashVehicleWindow")
     self:addSets(getText("IGUI_MVCK_User_Permissions_lblAllowRemoveBurntVehicle"), "AllowRemoveBurntVehicle")
+
+    self:setWidth(self.requiredWidth)
+    self:setHeight(self.requiredHeight)
+    local chkPaddingRight = 15
+
+    for i = 1, #self.chkBox do
+        self.chkBox[i]:setX(
+            self.width - self.chkBox[i].width - chkPaddingRight
+        )
+    end
+    
+    self.btnCancel:setX(self.width / 2 - self.btnCancel.width - 15)
+    self.btnCancel:setY(self.height - self.btnCancel.height - pad)
+
+    self.btnConfirm:setX(self.width / 2 + 15)
+    self.btnConfirm:setY(self.height - self.btnConfirm.height - pad)
 end
 
 function MVCK.UI.UserPermissionPanel:new(x, y, width, height, vehicleID)
