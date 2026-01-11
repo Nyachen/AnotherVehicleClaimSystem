@@ -36,4 +36,5 @@ IG_UI_IT = {
 	IGUI_MVCK_User_Permissions_lblAllowInflatTires = "Permetti Gonfiaggio Gomme",
 	IGUI_MVCK_User_Permissions_lblAllowDeflatTires = "Permetti Sgonfiaggio Gomme",
 	IGUI_MVCK_User_Permissions_lblAllowSmashVehicleWindow = "Permetti la rottura delle finestre",
+	IGUI_MVCK_User_Permissions_lblAllowRemoveBurntVehicle = "Permetti lo smantellamento del veicolo",
 }

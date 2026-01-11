@@ -36,4 +36,5 @@ IG_UI_ES = {
 	IGUI_MVCK_User_Permissions_lblAllowInflatTires = "Permitir inflar Ruedas",
 	IGUI_MVCK_User_Permissions_lblAllowDeflatTires = "Permitir desinflar Ruedas",
 	IGUI_MVCK_User_Permissions_lblAllowSmashVehicleWindow = "Permitir romper Ventanas",
+	IGUI_MVCK_User_Permissions_lblAllowRemoveBurntVehicle = "Permitir desmantelar Vehículo",
 }

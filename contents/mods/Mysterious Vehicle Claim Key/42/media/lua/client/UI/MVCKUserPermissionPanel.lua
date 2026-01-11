@@ -107,6 +107,7 @@ function MVCK.UI.UserPermissionPanel:createChildren()
     self:addSets(getText("IGUI_MVCK_User_Permissions_lblAllowInflatTires"), "AllowInflatTires")
     self:addSets(getText("IGUI_MVCK_User_Permissions_lblAllowDeflatTires"), "AllowDeflatTires")
     self:addSets(getText("IGUI_MVCK_User_Permissions_lblAllowSmashVehicleWindow"), "AllowSmashVehicleWindow")
+    self:addSets(getText("IGUI_MVCK_User_Permissions_lblAllowRemoveBurntVehicle"), "AllowRemoveBurntVehicle")
 end
 
 function MVCK.UI.UserPermissionPanel:new(x, y, width, height, vehicleID)

@@ -467,3 +467,30 @@ function ISSmashWindow:new(character, window, vehiclePart)
 	}
 	return temp
 end
+
+-- Copy and override the vanilla ISRemoveBurntVehicle to block unauthorized users
+if not MVCK.oISRemoveBurntVehicle then
+    MVCK.oISRemoveBurntVehicle = ISRemoveBurntVehicle.new
+end
+
+function ISRemoveBurntVehicle:new(character, vehicle)
+	local checkResult = MVCK.getPublicPermission(vehicle, "AllowRemoveBurntVehicle")
+
+	if checkResult then
+		return MVCK.oISRemoveBurntVehicle(self, character, vehicle)
+	end
+
+	checkResult = MVCK.checkPermission(character, vehicle)
+
+	checkResult = MVCK.getSimpleBooleanPermission(checkResult)
+
+	if checkResult then
+		return MVCK.oISRemoveBurntVehicle(self, character, vehicle)
+	end
+
+	character:setHaloNote(getText("IGUI_MVCK_Vehicle_No_Permission"), 250, 250, 250, 300)
+	local temp = {
+		ignoreAction = true
+	}
+	return temp
+end
