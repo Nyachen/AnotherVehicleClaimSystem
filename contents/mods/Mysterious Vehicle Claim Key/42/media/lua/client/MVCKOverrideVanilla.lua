@@ -302,18 +302,18 @@ if not MVCK.oISTakeEngineParts then
     MVCK.oISTakeEngineParts = ISTakeEngineParts.new
 end
 
-function ISTakeEngineParts:new(character, part, item, time)	
+function ISTakeEngineParts:new(character, part, item, maxTime)
 	local checkResult = MVCK.getPublicPermission(part:getVehicle(), "AllowTakeEngineParts")
 
 	if checkResult then
-		return MVCK.oISTakeEngineParts(self, character, part, item, time)
+		return MVCK.oISTakeEngineParts(self, character, part, item, maxTime)
 	end
 
 	checkResult = MVCK.checkPermission(character, part:getVehicle())
 	checkResult = MVCK.getSimpleBooleanPermission(checkResult)
 
 	if checkResult then
-		return MVCK.oISTakeEngineParts(self, character, part, item, time)
+		return MVCK.oISTakeEngineParts(self, character, part, item, maxTime)
 	end
 
 	character:setHaloNote(getText("IGUI_MVCK_Vehicle_No_Permission"), 250, 250, 250, 300)
