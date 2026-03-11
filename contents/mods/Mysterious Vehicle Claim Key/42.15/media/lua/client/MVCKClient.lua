@@ -216,7 +216,12 @@ function MVCK.ClientOnReceiveGlobalModData(key, modData)
 			MVCK.dbByPlayerID = {}
 		end
 	end
-	AVCS_RefreshOpenManagers()
+	if MVCK.UI and MVCK.UI.UserInstance and MVCK.UI.UserInstance.updateListVehicles and MVCK.UI.UserInstance.listVehicles then
+		MVCK.UI.UserInstance:updateListVehicles()
+	end
+	if MVCK.UI and MVCK.UI.AdminInstance and MVCK.UI.AdminInstance.initList and MVCK.UI.AdminInstance.listData then
+		MVCK.UI.AdminInstance:initList()
+	end
 end
 
 function MVCK.ClientEveryHours()
