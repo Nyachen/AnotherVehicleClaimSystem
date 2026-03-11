@@ -203,14 +203,26 @@ end
 
 function MVCK.ClientOnReceiveGlobalModData(key, modData)
 	if key == "MVCKByVehicleSQLID" then
-		MVCK.dbByVehicleSQLID = modData
+		if type(modData) == "table" then
+			MVCK.dbByVehicleSQLID = modData
+		elseif type(MVCK.dbByVehicleSQLID) ~= "table" then
+			MVCK.dbByVehicleSQLID = {}
+		end
 	end
 	if key == "MVCKByPlayerID" then
-		MVCK.dbByPlayerID = modData
+		if type(modData) == "table" then
+			MVCK.dbByPlayerID = modData
+		elseif type(MVCK.dbByPlayerID) ~= "table" then
+			MVCK.dbByPlayerID = {}
+		end
 	end
+	AVCS_RefreshOpenManagers()
 end
 
 function MVCK.ClientEveryHours()
+	if type(MVCK.dbByPlayerID) ~= "table" then
+		return
+	end
 	local player = getPlayer()
 	if MVCK.dbByPlayerID[player:getUsername()] ~= nil then
 		sendClientCommand(player, "MVCK", "updateLastKnownLogonTime", nil)

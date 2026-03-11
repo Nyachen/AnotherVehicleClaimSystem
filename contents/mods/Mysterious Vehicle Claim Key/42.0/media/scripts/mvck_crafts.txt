@@ -1,5 +1,5 @@
 module Base {
-	craftRecipe Craft Mysterious Vehicle Claim Key
+	craftRecipe Craft_Mysterious_Vehicle_Claim_Key
 	{
 		timedAction = MakingHammer_Surface,
 		Time = 60,
