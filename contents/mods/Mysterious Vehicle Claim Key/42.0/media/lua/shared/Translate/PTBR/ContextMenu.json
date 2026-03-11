@@ -1,0 +1,7 @@
+{
+    "ContextMenu_MVCK_ClaimVehicle" : "Reivindicar Veículo",
+	"ContextMenu_MVCK_UnclaimVehicle" : "Liberar Veículo",
+    "ContextMenu_MVCK_UnsupportedVehicle" : "Reivindicar Veículo [Erro]",
+    "ContextMenu_MVCK_ClientUserUI" : "Gerenciar Veículos",
+    "ContextMenu_MVCK_AdminUserUI" : "Gerenciar Veículos [admin]"
+}

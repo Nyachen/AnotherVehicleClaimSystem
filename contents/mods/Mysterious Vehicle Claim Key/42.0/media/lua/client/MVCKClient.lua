@@ -12,10 +12,17 @@ end
 function MVCK.updateClientClaimVehicle(arg)
 	-- A desync has occurred, this shouldn't happen
 	-- We will request full data from server
-	if MVCK.dbByVehicleSQLID == nil then
+	if type(arg) ~= "table" then
 		ModData.request("MVCKByVehicleSQLID")
 		ModData.request("MVCKByPlayerID")
 		return
+	end
+
+	if type(MVCK.dbByVehicleSQLID) ~= "table" then
+		MVCK.dbByVehicleSQLID = {}
+	end
+	if type(MVCK.dbByPlayerID) ~= "table" then
+		MVCK.dbByPlayerID = {}
 	end
 
 	MVCK.dbByVehicleSQLID[arg.VehicleID] = {
@@ -41,10 +48,18 @@ end
 function MVCK.updateClientUnclaimVehicle(arg)
 	-- A desync has occurred, this shouldn't happen
 	-- We will request full data from server
-	if MVCK.dbByVehicleSQLID == nil then
+	if type(arg) ~= "table" then
 		ModData.request("MVCKByVehicleSQLID")
 		ModData.request("MVCKByPlayerID")
 		return
+	end
+
+	if type(MVCK.dbByVehicleSQLID) ~= "table" then
+		MVCK.dbByVehicleSQLID = {}
+	end
+	
+	if type(MVCK.dbByPlayerID) ~= "table" then
+		MVCK.dbByPlayerID = {}
 	end
 	
 	if MVCK.dbByVehicleSQLID[arg.VehicleID] == nil then
@@ -196,8 +211,9 @@ function MVCK.ClientOnReceiveGlobalModData(key, modData)
 end
 
 function MVCK.ClientEveryHours()
-	if MVCK.dbByPlayerID[getPlayer():getUsername()] ~= nil then
-		sendClientCommand(getPlayer(), "MVCK", "updateLastKnownLogonTime", nil)
+	local player = getPlayer()
+	if MVCK.dbByPlayerID[player:getUsername()] ~= nil then
+		sendClientCommand(player, "MVCK", "updateLastKnownLogonTime", nil)
 	end
 end
 

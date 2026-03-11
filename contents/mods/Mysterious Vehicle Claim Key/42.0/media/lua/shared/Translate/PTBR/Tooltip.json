@@ -1,0 +1,9 @@
+{
+    "Tooltip_MVCK_Needs" : "Precisa de:",
+    "Tooltip_MVCK_ClaimVehicle" : "Reivindicar Ve�culo",
+    "Tooltip_MVCK_Unsupported" : "Ve�culo n�o suportado, relate ao admin!",
+    "Tooltip_MVCK_Owner" : "Propriet�rio",
+    "Tooltip_MVCK_Expire" : "Expira em",
+    "Tooltip_MVCK_Towed" : "N�o pode ser rebocado",
+    "Tooltip_MVCK_ExceedLimit" : "Excede o limite de reivindica��es"
+}
